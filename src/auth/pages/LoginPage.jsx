@@ -38,13 +38,6 @@ export const LoginPage = () => {
     }
   }
   
-  
-  const onGoogleSignIn = () =>{
-    dispatch(startGoogleSignIn());
-    navigate("/", {
-      replace: true,
-    });
-  }
 
   return (
 
