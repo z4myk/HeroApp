@@ -1,15 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter as Router } from 'react-router-dom'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
+import {store} from './store/store'
+import { HeroesApp } from "./HeroesApp";
 
-import { HeroesApp } from './HeroesApp'
+import { Provider } from "react-redux";
+import "./styles.css";
 
-import './styles.css'
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Router>
-       <HeroesApp />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <HeroesApp />
+      </Router> 
+    </Provider>
   </React.StrictMode>
-)
+);

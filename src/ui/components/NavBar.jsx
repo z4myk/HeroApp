@@ -1,14 +1,20 @@
+import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-
-
+import { AuthContext } from '../../auth/context/AuthContext';
+import {startLogout} from '../../store/auth/thunks'
+import {useCheckAuth} from '../../heroes/hooks/useCheckAuth'
 export const Navbar = () => {
 
     const navigate = useNavigate()
-
+    const dispatch = useDispatch();
+    const {status, currentUser} = useCheckAuth();
+    console.log(status)
+    const {user, logout} = useContext(AuthContext)
     const isActive = ({isActive}) => `nav-item nav-link ${isActive ? 'active' : ''}`
 
     const onLogout = () => {    
-
+        dispatch(startLogout())
         navigate('/login', {
             replace: false
         })
@@ -41,17 +47,23 @@ export const Navbar = () => {
                     >
                         DC
                     </NavLink>
+                    <NavLink 
+                        className={isActive} 
+                        to="/search"
+                    >
+                       Search
+                    </NavLink>
                 </div>
             </div>
 
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav ml-auto">
                     <span className="nav-item nav-link text-primary">
-                        Sebastian
+                            {currentUser.displayName}
                         </span>
                     <button 
                      onClick={onLogout}
-                    className="btn nav-item nav-link">
+                    className="btn nav-item nav-link text-danger">
                    
                         Logout
                         </button>
